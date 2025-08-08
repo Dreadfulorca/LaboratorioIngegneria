@@ -1,0 +1,23 @@
+services:
+  web:
+    build:
+      context: .
+      args:
+        UID: $UID
+        GUID: $GUID
+    ports:
+      - 8080:80
+    networks:
+      - default
+    volumes:
+      - .:/var/www
+  db:
+    image: postgres:16-alpine
+    ports:
+      - 5432:5432
+    # set shared memory limit
+    shm_size: 128mb
+    environment:
+      POSTGRES_PASSWORD: segreta
+      POSTGRES_USER: dbuser
+      POSTGRES_DB: app
