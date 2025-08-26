@@ -8,7 +8,6 @@ use Symfony\Component\Validator\ConstraintValidator;
 
 class CategoryForExpenseValidator extends ConstraintValidator
 {
-    /** @param Movement $movement */
     public function validate($movement, Constraint $constraint): void
     {
         if (!$movement instanceof Movement) return;

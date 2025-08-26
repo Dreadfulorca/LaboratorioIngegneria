@@ -8,4 +8,9 @@ class CategoryForExpense extends Constraint
 {
     public string $messageMissing = 'Per le uscite la categoria è obbligatoria.';
     public string $messageForbidden = 'Per le entrate non è possibile specificare una categoria.';
+
+    public function getTargets(): string
+    {
+        return self::CLASS_CONSTRAINT;
+    }
 }
