@@ -1,0 +1,84 @@
+{% extends 'base.html.twig' %}
+{% block title %}Riepilogo movimenti{% endblock %}
+
+{% block body %}
+    <div class="d-flex align-items-center justify-content-between mb-3">
+        <h1 class="h3 m-0">Riepilogo movimenti</h1>
+        <a class="btn btn-primary" href="{{ path('movement_new') }}">+ Aggiungi movimento</a>
+    </div>
+
+    {% for label, messages in app.flashes %}
+        {% for message in messages %}
+            <div class="alert alert-{{ label }} mb-3">{{ message }}</div>
+        {% endfor %}
+    {% endfor %}
+
+    <form method="get" class="row g-2 align-items-end mb-3">
+        <div class="col-md-4">
+            <label for="category" class="form-label">Filtra per categoria</label>
+            <select id="category" name="category" class="form-select" onchange="this.form.submit()">
+                <option value="">Tutte</option>
+                {% for cat in categories %}
+                    <option value="{{ cat.id }}" {% if selectedCategory == cat.id %}selected{% endif %}>
+                        {{ cat.name }}
+                    </option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="col-md-auto">
+            <a class="btn btn-outline-secondary" href="{{ path('movement_index') }}">Reset</a>
+        </div>
+    </form>
+
+    {% if movements is empty %}
+        <div class="alert alert-info">Nessun movimento trovato.</div>
+    {% else %}
+        <div class="table-responsive">
+            <table class="table table-striped align-middle">
+                <thead>
+                <tr>
+                    <th style="width: 110px;">Data</th>
+                    <th style="width: 90px;">Tipo</th>
+                    <th>Descrizione</th>
+                    <th style="width: 180px;">Categoria</th>
+                    <th class="text-end" style="width: 140px;">Ammontare</th>
+                    <th style="width: 160px;"></th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for m in movements %}
+                    <tr>
+                        <td>{{ m.date|date('Y-MM-dd') }}</td>
+                        <td>
+                            {% if m.type.value == 'income' %}
+                                <span class="badge bg-success">Entrata</span>
+                            {% else %}
+                                <span class="badge bg-danger">Uscita</span>
+                            {% endif %}
+                        </td>
+                        <td>{{ m.description }}</td>
+                        <td>
+                            {# mostro la categoria se presente #}
+                            {{ m.category ? m.category.name : '-' }}
+                        </td>
+                        <td class="text-end">
+                            {# opzionale: + per Entrata, - per Uscita (solo UI) #}
+                            {% set sign = m.type.value == 'income' ? '+' : '-' %}
+                            {{ sign }} {{ m.amount|number_format(2, ',', '.') }}
+                        </td>
+                        <td class="text-end">
+                            <a class="btn btn-sm btn-outline-secondary" href="{{ path('movement_edit', {id: m.id}) }}">Modifica</a>
+
+                            <form method="post" action="{{ path('movement_delete', {id: m.id}) }}" class="d-inline"
+                                  onsubmit="return confirm('Eliminare definitivamente questo movimento?');">
+                                <input type="hidden" name="_token" value="{{ csrf_token('delete_movement_' ~ m.id) }}">
+                                <button class="btn btn-sm btn-outline-danger">Elimina</button>
+                            </form>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% endif %}
+{% endblock %}
