@@ -12,6 +12,35 @@
         {% endblock %}
     </head>
     <body>
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
+        <div class="container">
+            <a class="navbar-brand" href="{{ path('movement_new') }}">Finanze</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link {% if app.request.attributes.get('_route') == 'movement_new' %}active{% endif %}" href="{{ path('movement_new') }}">
+                            Aggiungi movimento
+                        </a>
+                    </li>
+                    {# Quando creeremo altre pagine, aggiungiamo qui altri link #}
+                    <li class="nav-item">
+                        <a class="nav-link disabled" href="#">
+                            Lista movimenti (coming soon)
+                        </a>
+                    </li>
+                </ul>
+                <span class="navbar-text text-white">
+        Progetto Finanze
+      </span>
+            </div>
+        </div>
+    </nav>
+
         {% block body %}{% endblock %}
     </body>
 </html>
