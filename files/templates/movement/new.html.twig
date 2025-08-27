@@ -59,7 +59,7 @@
     </div>
 
     {# Toggle visibilitÃ  categoria in base al tipo #}
-    <script>
+    {# <script>
         (function() {
             const radios = document.querySelectorAll('input[name="{{ form.type.vars.full_name }}"]');
             const categoryWrapper = document.getElementById('category-wrapper');
@@ -80,6 +80,6 @@
             radios.forEach(r => r.addEventListener('change', onTypeChange));
             onTypeChange();
         })();
-    </script>
+    </script>#}
 
 {% endblock %}
