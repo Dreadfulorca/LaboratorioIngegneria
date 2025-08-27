@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Form;
 
 use App\Entity\Category;
@@ -18,22 +19,25 @@ class MovementType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            // amount
             ->add('amount', NumberType::class, [
                 'label' => 'Ammontare',
                 'html5' => true,
-                'scale' => 2,                // rende più comodo per l’utente, la validazione è nel model
-                'attr' => ['step' => '0.01', 'min' => '0.01', 'inputmode' => 'decimal'],
+                'scale' => 2, // UI: 2 decimali; la regex nel model fa fede
+                'attr' => [
+                    'step' => '0.01',
+                    'min'  => '0.01',
+                    'inputmode' => 'decimal',
+                ],
             ])
             ->add('description', TextType::class, [
                 'label' => 'Descrizione',
                 'attr' => ['maxlength' => 100],
             ])
             ->add('date', DateType::class, [
-                'label' => 'Data',
+                'label'  => 'Data',
                 'widget' => 'single_text',
-                'input' => 'datetime_immutable',
-                'data' => new \DateTimeImmutable('today'), // default oggi
+                'input'  => 'datetime_immutable',
+                'data'   => new \DateTimeImmutable('today'),
             ])
             ->add('type', ChoiceType::class, [
                 'label' => 'Tipo',
@@ -41,13 +45,13 @@ class MovementType extends AbstractType
                     'Entrata' => MT::INCOME,
                     'Uscita'  => MT::EXPENSE,
                 ],
-                'expanded' => true,  // radio
+                'expanded' => true, // radio
             ])
             ->add('category', EntityType::class, [
                 'class' => Category::class,
                 'choice_label' => 'name',
                 'placeholder' => 'Seleziona categoria',
-                'required' => false, // sarà forzata dal validator solo per Uscita
+                'required' => false, // obbligatoria solo per Uscita (validator di classe)
             ]);
     }
 

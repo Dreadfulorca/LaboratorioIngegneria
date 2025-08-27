@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Aggiunta movimento{% endblock %}
+{% block title %}Aggiungi movimento{% endblock %}
 
 {% block body %}
     <div class="container py-4">
@@ -19,6 +19,7 @@
                 {{ form_widget(form.amount, {'attr': {'class': 'form-control'}}) }}
                 {{ form_errors(form.amount) }}
             </div>
+
             <div class="col-md-8">
                 {{ form_label(form.description) }}
                 {{ form_widget(form.description, {'attr': {'class': 'form-control', 'maxlength': 100}}) }}
@@ -50,22 +51,24 @@
 
         <div class="mt-4">
             <button class="btn btn-primary">Salva</button>
+            <a class="btn btn-outline-secondary" href="{{ path('movement_index') }}">Annulla</a>
         </div>
         {{ form_end(form) }}
     </div>
 
+    {# Toggle visibilitÃ  categoria in base al tipo #}
     <script>
         (function() {
             const radios = document.querySelectorAll('input[name="{{ form.type.vars.full_name }}"]');
-            const categoryWrapper = document.getElementById('category-wrapper');
-            const categorySelect = categoryWrapper.querySelector('select');
+            const wrap = document.getElementById('category-wrapper');
+            const select = wrap ? wrap.querySelector('select') : null;
 
             function onTypeChange() {
-                const selected = [...radios].find(r => r.checked)?.value;
+                const selected = [...radios].find(r => r.checked)?.value; // 'income' | 'expense'
                 const isExpense = selected === 'expense';
-                categoryWrapper.style.display = isExpense ? '' : 'none';
-                categorySelect.required = isExpense;
-                if (!isExpense) { categorySelect.value = ''; }
+                if (wrap) wrap.style.display = isExpense ? '' : 'none';
+                if (select) select.required = isExpense;
+                if (!isExpense && select) select.value = '';
             }
 
             radios.forEach(r => r.addEventListener('change', onTypeChange));
