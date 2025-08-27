@@ -17,13 +17,15 @@
         <div class="col-md-4">
             <label for="category" class="form-label">Filtra per categoria</label>
             <select id="category" name="category" class="form-select" onchange="this.form.submit()">
-                <option value="">Tutte</option>
+                <option value="" {{ selectedCategory is null ? 'selected' : '' }}>Tutte</option>
                 {% for cat in categories %}
-                    <option value="{{ cat.id }}" {% if selectedCategory == cat.id %}selected{% endif %}>
+                    <option value="{{ cat.id }}" {{ selectedCategory == cat.id ? 'selected' : '' }}>
                         {{ cat.name }}
                     </option>
                 {% endfor %}
             </select>
+
+
         </div>
         <div class="col-md-auto">
             <a class="btn btn-outline-secondary" href="{{ path('movement_index') }}">Reset</a>
@@ -48,7 +50,7 @@
                 <tbody>
                 {% for m in movements %}
                     <tr>
-                        <td>{{ m.date|date('Y-MM-dd') }}</td>
+                        <td>{{ m.date|date('Y-m-d') }}</td>
                         <td>
                             {% if m.type.value == 'income' %}
                                 <span class="badge bg-success">Entrata</span>
