@@ -51,6 +51,13 @@ class MovementController extends AbstractController
             return $this->redirectToRoute('movement_index');
         }
 
+        // 🔹 Mostra gli errori del form come flash di debug
+        if ($form->isSubmitted() && !$form->isValid()) {
+            foreach ($form->getErrors(true) as $error) {
+                $this->addFlash('danger', $error->getMessage());
+            }
+        }
+
         return $this->render('movement/new.html.twig', [
             'form' => $form->createView(),
         ]);

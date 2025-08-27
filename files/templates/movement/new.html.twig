@@ -13,6 +13,8 @@
         {% endfor %}
 
         {{ form_start(form) }}
+
+        {{ form_errors(form) }}
         <div class="row g-3">
             <div class="col-md-4">
                 {{ form_label(form.amount) }}
@@ -60,19 +62,24 @@
     <script>
         (function() {
             const radios = document.querySelectorAll('input[name="{{ form.type.vars.full_name }}"]');
-            const wrap = document.getElementById('category-wrapper');
-            const select = wrap ? wrap.querySelector('select') : null;
+            const categoryWrapper = document.getElementById('category-wrapper');
+            const categorySelect = categoryWrapper?.querySelector('select');
 
             function onTypeChange() {
-                const selected = [...radios].find(r => r.checked)?.value; // 'income' | 'expense'
+                const selected = [...radios].find(r => r.checked)?.value;
                 const isExpense = selected === 'expense';
-                if (wrap) wrap.style.display = isExpense ? '' : 'none';
-                if (select) select.required = isExpense;
-                if (!isExpense && select) select.value = '';
+                if (!categoryWrapper || !categorySelect) return;
+
+                categoryWrapper.style.display = isExpense ? '' : 'none';
+                categorySelect.required = isExpense;
+
+                // se passo a "Entrata", svuoto la selezione
+                if (!isExpense) categorySelect.value = '';
             }
 
             radios.forEach(r => r.addEventListener('change', onTypeChange));
-            onTypeChange(); // init
+            onTypeChange();
         })();
     </script>
+
 {% endblock %}
