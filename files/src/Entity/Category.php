@@ -20,9 +20,17 @@ class Category
     #[Assert\Length(max: 60)]
     private ?string $name = null;
 
+    #[ORM\Column(type: 'string', length: 7)]
+    #[Assert\NotBlank(message: 'Il colore è obbligatorio.')]
+    #[Assert\Regex(pattern: '/^#[0-9A-Fa-f]{6}$/', message: 'Inserisci un colore esadecimale valido, es. #A1B2C3')]
+    private ?string $color = null;
+
     public function getId(): ?int { return $this->id; }
     public function getName(): ?string { return $this->name; }
     public function setName(string $name): self { $this->name = $name; return $this; }
+
+    public function getColor(): ?string { return $this->color; }
+    public function setColor(string $color): self { $this->color = strtoupper($color); return $this; }
 
     public function __toString(): string
     {
