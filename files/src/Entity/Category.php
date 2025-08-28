@@ -20,7 +20,7 @@ class Category
     #[Assert\Length(max: 60)]
     private ?string $name = null;
 
-    public function getId(): ?int { return $id ?? null; }
+    public function getId(): ?int { return $this->id; }
     public function getName(): ?string { return $this->name; }
     public function setName(string $name): self { $this->name = $name; return $this; }
 
