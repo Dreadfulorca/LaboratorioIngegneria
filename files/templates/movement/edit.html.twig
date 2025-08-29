@@ -2,13 +2,58 @@
 {% block title %}Modifica movimento{% endblock %}
 
 {% block body %}
-    <h1 class="mb-3">Modifica movimento</h1>
+    <div class="container py-4">
+        <h1 class="mb-3">Modifica movimento</h1>
 
-    {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <div class="mt-3 d-flex gap-2">
-        <button class="btn btn-primary">Salva</button>
-        <a class="btn btn-outline-secondary" href="{{ path('movement_index') }}">Annulla</a>
+        {% for label, messages in app.flashes %}
+            {% for message in messages %}
+                <div class="alert alert-{{ label }} mb-3">{{ message }}</div>
+            {% endfor %}
+        {% endfor %}
+
+        {{ form_start(form) }}
+        {{ form_errors(form) }}
+        <div class="row g-3">
+            <div class="col-md-4">
+                {{ form_label(form.amount) }}
+                {{ form_widget(form.amount, {'attr': {'class': 'form-control'}}) }}
+                {{ form_errors(form.amount) }}
+            </div>
+
+            <div class="col-md-8">
+                {{ form_label(form.description) }}
+                {{ form_widget(form.description, {'attr': {'class': 'form-control', 'maxlength': 100}}) }}
+                <div class="form-text">Max 100 caratteri.</div>
+                {{ form_errors(form.description) }}
+            </div>
+
+            <div class="col-md-4">
+                {{ form_label(form.date) }}
+                {{ form_widget(form.date, {'attr': {'class': 'form-control'}}) }}
+                <div class="form-text">Non sono permesse date future.</div>
+                {{ form_errors(form.date) }}
+            </div>
+
+            <div class="col-md-4">
+                {{ form_label(form.type) }}
+                <div class="form-control p-2">
+                    {{ form_widget(form.type) }}
+                </div>
+                {{ form_errors(form.type) }}
+            </div>
+
+            <div class="col-md-4" id="category-wrapper">
+                {{ form_label(form.category) }}
+                {{ form_widget(form.category, {'attr': {'class': 'form-select'}}) }}
+                {{ form_errors(form.category) }}
+            </div>
+        </div>
+
+        <div class="mt-3 d-flex gap-2">
+            <button class="btn btn-primary">Salva</button>
+            <a class="btn btn-outline-secondary" href="{{ path('movement_index') }}">Annulla</a>
+        </div>
+        {{ form_end(form) }}
+
     </div>
-    {{ form_end(form) }}
 {% endblock %}
