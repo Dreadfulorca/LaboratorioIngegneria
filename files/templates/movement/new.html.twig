@@ -58,28 +58,5 @@
         {{ form_end(form) }}
     </div>
 
-    {# Toggle visibilitÃ  categoria in base al tipo #}
-    {# <script>
-        (function() {
-            const radios = document.querySelectorAll('input[name="{{ form.type.vars.full_name }}"]');
-            const categoryWrapper = document.getElementById('category-wrapper');
-            const categorySelect = categoryWrapper?.querySelector('select');
-
-            function onTypeChange() {
-                const selected = [...radios].find(r => r.checked)?.value;
-                const isExpense = selected === 'expense';
-                if (!categoryWrapper || !categorySelect) return;
-
-                categoryWrapper.style.display = isExpense ? '' : 'none';
-                categorySelect.required = isExpense;
-
-                // se passo a "Entrata", svuoto la selezione
-                if (!isExpense) categorySelect.value = '';
-            }
-
-            radios.forEach(r => r.addEventListener('change', onTypeChange));
-            onTypeChange();
-        })();
-    </script>#}
 
 {% endblock %}
