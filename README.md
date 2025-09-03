@@ -14,7 +14,7 @@ Doctrine crea lo schema al volo tramite SchemaTool; non sono necessarie migrazio
 **Requisiti:**
 - PHP 8.1+
 - Composer
-- Per i test: estensione PHP sqlite3 (es. su Ubuntu: sudo apt install php8.1-sqlite3)
+- **Per i test è necessario l'uso di: estensione PHP sqlite3 (es. su Ubuntu: sudo apt install php8.1-sqlite3)**
 
 
 
