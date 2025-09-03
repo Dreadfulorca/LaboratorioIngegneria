@@ -11,7 +11,7 @@ APP_ENV=test
 DATABASE_URL="sqlite:///%kernel.project_dir%/var/test.db"
 Doctrine crea lo schema al volo tramite SchemaTool; non sono necessarie migrazioni né un server PostgreSQL.
 
-**Requisiti:
+**Requisiti:**
 - PHP 8.1+
 - Composer
 - Per i test: estensione PHP sqlite3 (es. su Ubuntu: sudo apt install php8.1-sqlite3)
