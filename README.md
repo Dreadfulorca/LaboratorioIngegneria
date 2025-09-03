@@ -16,7 +16,7 @@ Doctrine crea lo schema al volo tramite SchemaTool; non sono necessarie migrazio
 - Composer
 - **Per i test è necessario l'uso di: estensione PHP sqlite3 (es. su Ubuntu: sudo apt install php8.1-sqlite3)**
 
-
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 # Repository di esempio per l'esame del corso di Laboratorio di Ingegneria del Software
 Gli studenti possono, se lo desiderano, utilizzare questo repository come punto di partenza per il loro progetto.
