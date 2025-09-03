@@ -1,3 +1,23 @@
+## Informazione importante per l'esecuzione dei test:
+
+## Ambienti e database
+
+- **Sviluppo/Produzione:** PostgreSQL (configurato in `files/.env` e nel `docker-compose.yml`).
+- **Test (PHPUnit):** SQLite, per evitare dipendenze da servizi esterni.
+
+In ambiente `test` viene utilizzato `files/.env.test`, che imposta:
+``dotenv
+APP_ENV=test
+DATABASE_URL="sqlite:///%kernel.project_dir%/var/test.db"
+Doctrine crea lo schema al volo tramite SchemaTool; non sono necessarie migrazioni né un server PostgreSQL.
+
+**Requisiti:
+- PHP 8.1+
+- Composer
+- Per i test: estensione PHP sqlite3 (es. su Ubuntu: sudo apt install php8.1-sqlite3)
+
+
+
 # Repository di esempio per l'esame del corso di Laboratorio di Ingegneria del Software
 Gli studenti possono, se lo desiderano, utilizzare questo repository come punto di partenza per il loro progetto.
 Il repository contiene un ambiente di sviluppo come quello utilizzato a lezione e tutti i pacchetti Symfony utilizzati
