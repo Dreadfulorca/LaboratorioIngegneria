@@ -142,8 +142,6 @@ La parte applicativa è principalmente nella cartella `files/`:
 
 ## 6) Database e ambienti
 
-## Ambienti e database
-
 - **Sviluppo/Produzione:** PostgreSQL (configurato in `files/.env` e nel `docker-compose.yml`).
 - **Test (PHPUnit):** SQLite, per evitare dipendenze da servizi esterni.
 
@@ -152,3 +150,90 @@ In ambiente `test` viene usato `files/.env.test` con:
 ```dotenv
 APP_ENV=test
 DATABASE_URL="sqlite:///%kernel.project_dir%/var/test.db"
+```
+
+---
+
+## 7) Prerequisiti
+
+Per eseguire correttamente il progetto sono necessari:
+
+- **Docker** + **Docker Compose**
+- **Make**
+- **PHP 8.1+** e **Composer** se si lavora fuori container
+- Estensione **SQLite** per PHP, necessaria per l’esecuzione dei test
+
+Su Ubuntu, ad esempio, l’estensione SQLite può essere installata con:
+
+```bash
+sudo apt install php8.1-sqlite3
+```
+
+---
+
+## 8) Avvio rapido
+
+Clona il repository.
+
+Avvia l’ambiente:
+
+```bash
+make start
+```
+
+Entra nella shell del container:
+
+```bash
+make shell
+```
+
+Installa le dipendenze:
+
+```bash
+composer install
+```
+
+Apri l’applicazione nel browser:
+
+```text
+http://localhost:8080
+```
+
+---
+
+## 9) Comandi utili sviluppo
+
+I seguenti comandi vanno eseguiti dalla cartella `files/`.
+
+### Migrazioni database
+
+```bash
+php bin/console doctrine:migrations:migrate
+```
+
+### Fixture demo (categorie)
+
+```bash
+php bin/console doctrine:fixtures:load
+```
+
+### Server PHP locale opzionale
+
+```bash
+php -S 0.0.0.0:8000 -t public
+```
+
+---
+
+## 10) Test automatici
+
+I test automatici vanno eseguiti dalla cartella `files/`.
+
+```bash
+php bin/phpunit
+```
+
+Tipologie presenti:
+
+- **Unit test:** testano componenti isolati, ad esempio validator custom.
+- **Integration test:** testano l’integrazione con container Symfony, validazione, repository e database.
